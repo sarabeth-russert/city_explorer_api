@@ -17,6 +17,14 @@ app.get('/', (request, response) => {
   console.log('hello');
 })
 
+app.get('/location', handleLocation);
+app.get('/weather', handleWeather);
+app.use('*', notFoundHandler);
+
+function notFoundHandler(request, response){
+  response.status(404).send('that is not a valid entry');
+}
+
 function handleLocation(request, response) {
   try {
     const city = request.query.city;
@@ -49,13 +57,9 @@ function handleWeather(request, response) {
 }
 
 function Weather(day) {
-  this.forcast = day.weather.description;
+  this.forecast = day.weather.description;
   this.time = day.datetime;
 }
-
-
-app.get('/location', handleLocation);
-app.get('/weather', handleWeather);
 
 app.listen(port, () => {
   console.log('Listening on port: ' + port);
