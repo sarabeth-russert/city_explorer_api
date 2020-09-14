@@ -22,7 +22,7 @@ app.get('/weather', handleWeather);
 app.use('*', notFoundHandler);
 
 function notFoundHandler(request, response){
-  response.status(404).send('that is not a valid entry');
+  response.status(500).send('Sorry, something went wrong');
 }
 
 function handleLocation(request, response) {
