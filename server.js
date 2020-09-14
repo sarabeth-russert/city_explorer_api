@@ -17,9 +17,7 @@ app.get('/', (request, response) => {
   console.log('hello');
 })
 
-app.get('/location', handleLocation);
-
-function handleLocation(request, response){
+function handleLocation(request, response) {
   try {
     const city = request.query.city;
     const locationObject = new Location(city, locationData);
@@ -37,9 +35,27 @@ function Location(city, locationData) {
   this.longitude = locationData[0].lon;
 }
 
+function handleWeather(request, response) {
+  try {
+    let weatherArray = [];
+    weatherData.data.forEach(day => {
+      weatherArray.push(new Weather(day));
+    });
+    response.send(weatherArray);
+  }
+  catch (error) {
+    response.status(500).send('You have done something wrong!');
+  }
+}
+
+function Weather(day) {
+  this.forcast = day.weather.description;
+  this.time = day.datetime;
+}
 
 
-
+app.get('/location', handleLocation);
+app.get('/weather', handleWeather);
 
 app.listen(port, () => {
   console.log('Listening on port: ' + port);
