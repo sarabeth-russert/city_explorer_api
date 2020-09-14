@@ -33,6 +33,16 @@ Estimate of time needed to complete: 1 hour?
 
 Start time: 1:35
 
+Finish time: 2:50
+
+Actual time needed to complete:  1hr 15min, had some issues with my local host not working
+
+Number and name of feature: Weather
+
+Estimate of time needed to complete: 1 hour?
+
+Start time: 2:52
+
 Finish time: 
 
 Actual time needed to complete: 
