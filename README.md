@@ -22,6 +22,17 @@ Estimate of time needed to complete: 15 min
 
 Start time: 12:38
 
-Finish time: _____
+Finish time: 12:57
 
-Actual time needed to complete: _____
+Actual time needed to complete: 19 min
+
+
+Number and name of feature: Locations
+
+Estimate of time needed to complete: 1 hour?
+
+Start time: 1:35
+
+Finish time: 
+
+Actual time needed to complete: 
