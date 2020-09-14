@@ -1,11 +1,11 @@
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+A backend server that interacts with a static front end to serve information about various locations pulled from API data.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+Setup a server and install express, cors, and dotenv. Take in data for weather and locations and create get methods that supply the data when you go to the paths /location and /weather.
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+Using javascript and nodeJS, with terminal to create my server. Hosted on heroku via github.
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
@@ -14,6 +14,9 @@
 
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+09-14-2020 12:57pm Repo was set up in github and hosted on heroku.
+09-14-2020 04:00pm Feature 2 complete
+09-14-2020 04:10pm Error message feature complete
 -->
 
 Number and name of feature: Repo set up
@@ -43,6 +46,16 @@ Estimate of time needed to complete: 1 hour?
 
 Start time: 2:57
 
-Finish time: 
+Finish time: 4:00
 
-Actual time needed to complete: 
+Actual time needed to complete: about an hour
+
+Number and name of feature: error
+
+Estimate of time needed to complete: 5 min
+
+Start time: 4:00
+
+Finish time: 4:10
+
+Actual time needed to complete: 10 min
