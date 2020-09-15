@@ -29,6 +29,7 @@ Finish time: 12:57
 
 Actual time needed to complete: 19 min
 
+_____
 
 Number and name of feature: Locations
 
@@ -40,6 +41,8 @@ Finish time: 2:50
 
 Actual time needed to complete:  1hr 15min, had some issues with my local host not working
 
+____
+
 Number and name of feature: Weather
 
 Estimate of time needed to complete: 1 hour?
@@ -50,6 +53,8 @@ Finish time: 4:00
 
 Actual time needed to complete: about an hour
 
+____
+
 Number and name of feature: error
 
 Estimate of time needed to complete: 5 min
@@ -59,3 +64,53 @@ Start time: 4:00
 Finish time: 4:10
 
 Actual time needed to complete: 10 min
+
+____
+
+Number and name of feature: Data formatting 
+
+Estimate of time needed to complete: 15min?
+
+Start time: 1:28
+
+Finish time: 1:31
+
+Actual time needed to complete: 3 min
+
+____
+
+Number and name of feature: Locations
+
+Estimate of time needed to complete: 
+
+Start time: 1:47
+
+Finish time: 
+
+Actual time needed to complete: 
+
+____
+
+Number and name of feature: Weather
+
+Estimate of time needed to complete: 
+
+Start time: 1:28
+
+Finish time: 1:31
+
+Actual time needed to complete: 3 min
+
+____
+
+Number and name of feature: Trails 
+
+Estimate of time needed to complete: 
+
+Start time: 1:28
+
+Finish time: 1:31
+
+Actual time needed to complete: 3 min
+
+
