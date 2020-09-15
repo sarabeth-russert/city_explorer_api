@@ -85,21 +85,21 @@ Estimate of time needed to complete:
 
 Start time: 1:47
 
-Finish time: 
+Finish time: 2:52
 
-Actual time needed to complete: 
+Actual time needed to complete: 1hr 9 min
 
 ____
 
 Number and name of feature: Weather
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 1 hour
 
-Start time: 1:28
+Start time: 3:24
 
-Finish time: 1:31
+Finish time: 4:21
 
-Actual time needed to complete: 3 min
+Actual time needed to complete: 1 hour
 
 ____
 

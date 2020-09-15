@@ -19,7 +19,7 @@ app.get('/', (request, response) => {
 })
 
 app.get('/location', handleLocation);
-//app.get('/weather', handleWeather);
+app.get('/weather', handleWeather);
 app.use('*', notFoundHandler);
 
 function notFoundHandler(request, response){
@@ -33,7 +33,7 @@ function handleLocation(request, response) {
     superagent.get(url)
       .then(data => {
         const locationData = data.body[0];
-        const location = new Location(city, locationData);
+        let location = new Location(city, locationData);
         response.send(location);
       })
       .catch(() => {
@@ -55,7 +55,15 @@ function Location(city, locationData) {
 
 function handleWeather(request, response) {
   try {
-    response.send(weatherData.data.map(day => new Weather(day)));
+    const lat = request.query.latitude;
+    const lon = request.query.longitude;
+    const city = request.query.search_query;
+    const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=${weatherAPIKey}`
+    superagent.get(url)
+      .then(results => {
+        const weatherData = results.body.data.slice(0, 8);
+        response.send(weatherData.map(day => new Weather(day)));
+      })
   }
   catch (error) {
     response.status(500).send('You have done something wrong!');
