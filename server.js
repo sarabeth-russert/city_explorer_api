@@ -27,9 +27,9 @@ function notFoundHandler(request, response){
 }
 
 function handleLocation(request, response) {
-  const city = request.query.city;
-  const url = `https://us1.locationiq.com/v1/search.php?key=${locationAPIKey}&q=${city}&format=json&limit=1`;
   try {
+    const city = request.query.city;
+    const url = `https://us1.locationiq.com/v1/search.php?key=${locationAPIKey}&q=${city}&format=json&limit=1`;
     superagent.get(url)
       .then(data => {
         const locationData = data.body[0];
