@@ -105,12 +105,12 @@ ____
 
 Number and name of feature: Trails 
 
-Estimate of time needed to complete: 
+Estimate of time needed to complete: 1 hour?
 
-Start time: 1:28
+Start time: 4:30
 
-Finish time: 1:31
+Finish time: 5:00
 
-Actual time needed to complete: 3 min
+Actual time needed to complete: 30min
 
 
