@@ -12,6 +12,7 @@ app.use(cors());
 let port = process.env.PORT;
 let locationAPIKey = process.env.LOCATION_API;
 let weatherAPIKey = process.env.WEATHER_API;
+let hikingAPIKey = process.env.HIKING_API
 
 app.get('/', (request, response) => {
   response.send('Hello World');
@@ -20,6 +21,7 @@ app.get('/', (request, response) => {
 
 app.get('/location', handleLocation);
 app.get('/weather', handleWeather);
+app.get('/trails', handleTrails);
 app.use('*', notFoundHandler);
 
 function notFoundHandler(request, response){
@@ -74,6 +76,36 @@ function Weather(day) {
   this.forecast = day.weather.description;
   this.time = day.datetime;
 }
+
+function handleTrails(request, response) {
+  try {
+    const lat = request.query.latitude;
+    const lon = request.query.longitude;
+    const url = `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=10&key=${hikingAPIKey}`
+    superagent.get(url)
+      .then(results => {
+        const hikingData = results.body.trails;
+        response.send(hikingData.map(trails => new Trail(trails)));
+      })
+  }
+  catch (error) {
+    response.status(500).send('You have done something wrong!');
+  }
+}
+
+function Trail(trails) {
+  this.name = trails.name;
+  this.location = trails.location;
+  this.length = trails.length;
+  this.stars = trails.stars;
+  this.star_votes = trails.starVotes;
+  this.summary = trails.summary;
+  this.trail_url = trails.url
+  this.conditions = trails.conditionDetails;
+  this.condition_date = trails.conditionDate.slice(0, 9);
+  this.condition_time = trails.conditionDate.slice(11, 19);
+}
+
 
 app.listen(port, () => {
   console.log('Listening on port: ' + port);
