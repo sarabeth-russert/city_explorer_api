@@ -17,6 +17,10 @@ Using javascript and nodeJS, with terminal to create my server. Hosted on heroku
 09-14-2020 12:57pm Repo was set up in github and hosted on heroku.
 09-14-2020 04:00pm Feature 2 complete
 09-14-2020 04:10pm Error message feature complete
+09-15-2020 01:31pm Locations feature complete
+09-15-2020 04:21pm Weather feature complete
+
+
 -->
 
 Number and name of feature: Repo set up
