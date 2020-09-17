@@ -135,10 +135,22 @@ Number and name of feature: Server
 
 Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 4:11
 
-Finish time: _____
+Finish time: 8:00pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 4 hours, with some breaks
+
+______
+
+Number and name of feature: 
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 4:11
+
+Finish time: 8:00pm
+
+Actual time needed to complete: 4 hours, with some breaks
 
 
