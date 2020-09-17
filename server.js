@@ -15,7 +15,6 @@ const client = new pg.Client(process.env.DATABASE_URL);
 let locationAPIKey = process.env.LOCATION_API;
 let weatherAPIKey = process.env.WEATHER_API;
 let hikingAPIKey = process.env.HIKING_API
-let locations = {};
 
 app.get('/', (request, response) => {
   response.send('Hello World');
