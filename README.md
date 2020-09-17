@@ -117,4 +117,28 @@ Finish time: 5:00
 
 Actual time needed to complete: 30min
 
+______
+
+Number and name of feature: Database Setup
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 3:30
+
+Finish time: 4:08
+
+Actual time needed to complete: 38 min
+
+______
+
+Number and name of feature: Server
+
+Estimate of time needed to complete: 1 hour
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+
 
