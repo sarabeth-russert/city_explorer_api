@@ -53,7 +53,7 @@ function handleLocation(request, response) {
             console.log('you got the data');
             const locationData = data.body[0];
             let location = new Location(queryObject.city, locationData);
-            addLocationToDB(location);
+            location.addLocationToDB();
             response.send(location);
           })
           .catch(() => {
@@ -72,9 +72,9 @@ function Location(city, locationData) {
   this.longitude = locationData.lon;
 }
 
-function addLocationToDB(city) {
+Location.prototype.addLocationToDB = function() {
   let SQL = `INSERT INTO citydata VALUES ($1, $2, $3, $4);`;
-  let safeValues = [city.search_query.toLowerCase(), city.formatted_query, city.latitude, city.longitude];
+  let safeValues = [this.search_query.toLowerCase(), this.formatted_query, this.latitude, this.longitude];
 
   client.query(SQL, safeValues)
     .then (data => console.log(data + 'was stored'));
