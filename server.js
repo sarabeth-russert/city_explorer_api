@@ -5,18 +5,19 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const superagent = require('superagent');
+const pg = require('pg')
 
 const app = express();
 app.use(cors());
 
 let port = process.env.PORT;
+const client = new pg.Client(process.env.DATABASE_URL);
 let locationAPIKey = process.env.LOCATION_API;
 let weatherAPIKey = process.env.WEATHER_API;
 let hikingAPIKey = process.env.HIKING_API
 
 app.get('/', (request, response) => {
   response.send('Hello World');
-  console.log('hello');
 })
 
 app.get('/location', handleLocation);
@@ -28,25 +29,41 @@ function notFoundHandler(request, response){
   response.status(500).send('Sorry, something went wrong');
 }
 
+
 function handleLocation(request, response) {
-  try {
-    const city = request.query.city;
-    const url = `https://us1.locationiq.com/v1/search.php?key=${locationAPIKey}&q=${city}&format=json&limit=1`;
-    superagent.get(url)
-      .then(data => {
-        const locationData = data.body[0];
-        let location = new Location(city, locationData);
-        response.send(location);
-      })
-      .catch(() => {
-        response.status(500).send('Something went wrong with your location with your superagent location');
-        console.log(url);
-      })
-  }
-  catch (error) {
-    response.status(500).send('You have done something wrong!');
-  }
+  const SQL = `SELECT * FROM citydata WHERE search_query = $1;`;
+  client.query(SQL, [request.query.city.toLowerCase()])
+    .then(results => {
+      if (results.rowCount >= 1) {
+        console.log('getting results FROM THE DATABASE');
+        response.status(200).json(results.rows[0]);
+      } else {
+        console.log('getting city from API', request.query.city);
+        const url = `https://us1.locationiq.com/v1/search.php`;
+
+        let queryObject = {
+          key: locationAPIKey,
+          city: request.query.city,
+          format: 'json',
+          limit: 1
+        };
+
+        superagent.get(url).query(queryObject)
+          .then(data => {
+            console.log('you got the data');
+            const locationData = data.body[0];
+            let location = new Location(queryObject.city, locationData);
+            addLocationToDB(location);
+            response.send(location);
+          })
+          .catch(() => {
+            response.status(500).send('Something went wrong with your location with your superagent location');
+            console.log(url);
+          })
+      }
+    })
 }
+
 
 function Location(city, locationData) {
   this.search_query = city;
@@ -54,6 +71,15 @@ function Location(city, locationData) {
   this.latitude = locationData.lat;
   this.longitude = locationData.lon;
 }
+
+function addLocationToDB(city) {
+  let SQL = `INSERT INTO citydata VALUES ($1, $2, $3, $4);`;
+  let safeValues = [city.search_query.toLowerCase(), city.formatted_query, city.latitude, city.longitude];
+
+  client.query(SQL, safeValues)
+    .then (data => console.log(data + 'was stored'));
+}
+
 
 function handleWeather(request, response) {
   try {
@@ -106,10 +132,15 @@ function Trail(trails) {
   this.condition_time = trails.conditionDate.slice(11, 19);
 }
 
+function startServer() {
+  app.listen(port, () => {
+    console.log('Server is listening on port', port);
+  });
+}
 
-app.listen(port, () => {
-  console.log('Listening on port: ' + port);
-});
+client.connect()
+  .then(startServer)
+  .catch(e => console.log(e))
 
 
 
