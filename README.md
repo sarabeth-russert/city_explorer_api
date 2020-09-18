@@ -19,7 +19,11 @@ Using javascript and nodeJS, with terminal to create my server. Hosted on heroku
 09-14-2020 04:10pm Error message feature complete
 09-15-2020 01:31pm Locations feature complete
 09-15-2020 04:21pm Weather feature complete
-
+09-15-2020 05:00pm Trails feature complete
+09-16-2020 04:08pm Database Setup complete
+09-16-2020 08:00pm Server storing and retreving from DB
+09-17-2020 05:15pm Weather Table set-up storing and recieving
+09-17-2020 07:38pm Weather Table deleting old data
 
 -->
 
@@ -143,14 +147,26 @@ Actual time needed to complete: 4 hours, with some breaks
 
 ______
 
-Number and name of feature: 
+Number and name of feature: weather table
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 2:20
+
+Finish time: 5:15
+
+Actual time needed to complete: about 3 hours
+
+______
+
+Number and name of feature: weather table deletion
 
 Estimate of time needed to complete: 1 hour
 
-Start time: 4:11
+Start time: 7:00pm
 
-Finish time: 8:00pm
+Finish time: 7:38pm
 
-Actual time needed to complete: 4 hours, with some breaks
+Actual time needed to complete: 40 min approx
 
 

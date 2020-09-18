@@ -85,13 +85,19 @@ function handleWeather(request, response) {
   let searchCity = request.query.search_query;
   let todaysDate = new Date().toLocaleDateString();
   let SQL = `SELECT * FROM weatherdata WHERE search_query = $1;`;
+  let deleteSQL = `DELETE FROM weatherdata WHERE search_query = $1;`;
   client.query(SQL, [searchCity.toLowerCase()])
     .then(results => {
       if(results.rowCount > 0 && Date.parse(todaysDate) - Date.parse(results.rows[0].time) < 864) {
-        console.log('we win');
+        console.log('weather data is curent');
         response.status(200).json(results.rows);
       } else {
-        console.log('its old');
+        if (results.rowCount > 0 && Date.parse(todaysDate) - Date.parse(results.rows[0].time) >= 864) {
+          console.log('its old');
+          client.query(deleteSQL, [searchCity.toLowerCase()])
+            .then(results => console.log('old data deleted' + results))
+        }
+        console.log('getting new weather data');
         const url = `https://api.weatherbit.io/v2.0/forecast/daily`;
         let queryObject = {
           key : weatherAPIKey,
@@ -113,8 +119,6 @@ function handleWeather(request, response) {
       }
     })
 }
-
-
 
 
 
