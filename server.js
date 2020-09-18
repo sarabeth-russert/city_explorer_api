@@ -73,7 +73,7 @@ function Location(city, locationData) {
 }
 
 Location.prototype.addLocationToDB = function() {
-  let SQL = `INSERT INTO citydata VALUES ($1, $2, $3, $4);`;
+  let SQL = `INSERT INTO citydata (search_query, formatted_query, latitude, longitude) VALUES ($1, $2, $3, $4);`;
   let safeValues = [this.search_query.toLowerCase(), this.formatted_query, this.latitude, this.longitude];
 
   client.query(SQL, safeValues)
@@ -82,25 +82,66 @@ Location.prototype.addLocationToDB = function() {
 
 
 function handleWeather(request, response) {
-  try {
-    const lat = request.query.latitude;
-    const lon = request.query.longitude;
-    const city = request.query.search_query;
-    const url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${city}&lat=${lat}&lon=${lon}&key=${weatherAPIKey}`
-    superagent.get(url)
-      .then(results => {
-        const weatherData = results.body.data.slice(0, 8);
-        response.send(weatherData.map(day => new Weather(day)));
-      })
-  }
-  catch (error) {
-    response.status(500).send('You have done something wrong!');
+  let searchCity = request.query.search_query;
+  let todaysDate = new Date().toLocaleDateString();
+  let SQL = `SELECT * FROM weatherdata WHERE search_query = $1;`;
+  client.query(SQL, [searchCity.toLowerCase()])
+    .then(results => {
+      if(results.rowCount > 0 && Date.parse(todaysDate) - Date.parse(results.rows[0].time) < 864) {
+        console.log('we win');
+        response.status(200).json(results.rows);
+      } else {
+        console.log('its old');
+        const url = `https://api.weatherbit.io/v2.0/forecast/daily`;
+        let queryObject = {
+          key : weatherAPIKey,
+          city : searchCity,
+          lat : request.query.latitude,
+          lon : request.query.longitude
+        };
+        superagent.get(url).query(queryObject)
+          .then(results => {
+            const weatherData = results.body.data.slice(0, 8);
+            let weatherObjectArray = weatherData.map(day => new Weather(day, searchCity));
+            response.status(200).send(weatherObjectArray);
+            weatherObjectArray.forEach(day => addWeatherToDb(day));
+          })
+          .catch(() => {
+            response.status(500).send('Something went wrong with your location with your superagent location');
+            console.log(url);
+          })
+      }
+    })
+}
+
+
+
+
+
+
+function formatTime(badTime) {
+  let betterTime = badTime.split('-');
+  let month = betterTime[1];
+  if (betterTime[1][0] === '0') {
+    let month =  betterTime[1].slice(1, 2);
+    return `${month}/${betterTime[2]}/${betterTime[0]}`
+  } else {
+    return `${month}/${betterTime[2]}/${betterTime[0]}`;
   }
 }
 
-function Weather(day) {
+function Weather(day, city) {
+  this.search_query = city;
   this.forecast = day.weather.description;
-  this.time = day.datetime;
+  this.time = formatTime(day.datetime);
+}
+
+function addWeatherToDb(day) {
+  let SQL = `INSERT INTO weatherdata (search_query, forecast, time) VALUES ($1, $2, $3);`;
+  let safeValues = [day.search_query, day.forecast, day.time];
+
+  client.query(SQL, safeValues)
+    .then (data => console.log(data + 'weather was stored'));
 }
 
 function handleTrails(request, response) {
